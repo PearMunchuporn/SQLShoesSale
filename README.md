@@ -61,3 +61,31 @@ Analyzed what the product got the best or worst rating using window function ran
 <h3><b>financial analysis</b></h3>
 The financial analysis aims to analyze the revenue of the product to answer business questions what product has the best or worst revenue with a discount or without any discount. This analysis can help the marketing team decide on which product should go on sale and find strategies for the enhancement of sales.
 
+
+<h2><b> Business Question for analytical data </h2><b/>
+
+<h3><b>Reviews analytical</b></h3>
+
+• What are products ranked top 3 highest ratings? <br>
+
+• What are products ranked top 3 lowest ratings? <br>
+
+• How many products got a 0 rating? <br>
+ <i>70 products of Adidas</i>
+
+• Categorize ratings of the products by criteria 5 is Excellent, less than 5 but more than or equal 4 is Good,  <br>
+less than 4 but more than or equal 3 is Fair, less than 3 but more than or equal 2 is Poor,  <br>
+less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
+
+• Total number of rated products by criteria? 
+
+ <i> Excellent is 116 </i> <br>
+ <i> Good is 903 </i> <br>
+ <i> Fair is 802 </i> <br>
+ <i> Poor is 163 </i> <br>
+ <i>  Worst is 70 </i> <br>
+
+
+
+
+
