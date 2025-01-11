@@ -1,7 +1,7 @@
 # SQLShoesSale
 
 <h2><b> About Data </h2><b/>
-SQL Project Analyzing Online Sports Revenue of popular brands Adidas and Niky 3117 products by using dataset of [datacamp](https://app.datacamp.com/ "Visit datacamp").
+SQL Project Analyzing Online Sports Revenue of popular brands Adidas and Niky 3117 products by using dataset of https://app.datacamp.com/ "Visit datacamp
 The tables consist of info, brands, finance, and reviews.
 
 <h3><b> info table </h3><b/>
