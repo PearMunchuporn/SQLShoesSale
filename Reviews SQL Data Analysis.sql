@@ -20,7 +20,7 @@ SELECT TOP (1000)
 
 
 ---What are products ranked top 3 lowest ratings?
-  with Lowest_Rating as (
+with Lowest_Rating as (
 SELECT TOP (1000)
       b.[product_id]
 	  ,b.[brand]
