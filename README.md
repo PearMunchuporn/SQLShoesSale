@@ -7,7 +7,7 @@ The tables consist of info, brands, finance, and reviews.
 <h4><b> info table </h4><b/>
 Table info consists of id, product_id, product_name, and description. <br>
 
-<br>
+
 
 | column | description | data type |
 |----------|----------|----------|
@@ -17,7 +17,8 @@ Table info consists of id, product_id, product_name, and description. <br>
 | description | description of product | VARCHAR(MAX) | <br>
 
 <h4><b> brands table </h4><b/>
-Table brands consists of id, product_id, brands. <br>
+Table brands consists of id, product_id, brand.<br>
+
 
 | column | description | data type |
 |----------|----------|----------|
