@@ -50,3 +50,14 @@ Table reviews consist of id, product_id, rating, and reviews.<br><br>
 | reviews | Number of reviews for the product  | INT | <br>
 
 
+<h2><b> Analysis the Data </h2><b/>
+  
+<h3><b>brands analysis</b></h3>
+To find the average rating scores of each brand by using aggregate function avg() and group by SQL to compare ratings between Niky and Adidas to inform brand producers should improve the quality of the product. 
+
+<h3><b>reviews analysis</b></h3>
+Analyzed what the product got the best or worst rating using window function rank() by top 3. That can help the production controller improve the quality of the product to meet clients' satisfication and get a better rating.
+
+<h3><b>financial analysis</b></h3>
+The financial analysis aims to analyze the revenue of the product to answer business questions what product has the best or worst revenue with a discount or without any discount. This analysis can help the marketing team decide on which product should go on sale.
+
