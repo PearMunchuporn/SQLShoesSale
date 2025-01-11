@@ -4,7 +4,7 @@
 SQL Project analyzed sports shoe sales of popular brands Adidas and Niky 3117 products.
 The tables consist of info, brands, finance, and reviews.
 
-<h4><b> info table </h4><b/>
+<h3><b> info table </h3><b/>
 Table info consists of id, product_id, product_name, and description. <br><br>
 
 
@@ -16,7 +16,7 @@ Table info consists of id, product_id, product_name, and description. <br><br>
 | product_id | unique identifier of each product | VARCHAR(50) |
 | description | description of product | VARCHAR(MAX) | <br>
 
-<h4><b> brands table </h4><b/>
+<h3><b> brands table </h3><b/>
 Table brands consists of id, product_id, brand.<br><br>
 
 
