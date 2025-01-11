@@ -5,7 +5,7 @@ SQL Project analyzed sports shoe sales of popular brands Adidas and Niky 3117 pr
 The tables consist of info, brands, finance, and reviews.
 
 <h4><b> info table </h4><b/>
-Table info consists of id, product_id, product_name, and description. <br>
+Table info consists of id, product_id, product_name, and description. <br><br>
 
 
 
@@ -17,7 +17,7 @@ Table info consists of id, product_id, product_name, and description. <br>
 | description | description of product | VARCHAR(MAX) | <br>
 
 <h4><b> brands table </h4><b/>
-Table brands consists of id, product_id, brand.<br>
+Table brands consists of id, product_id, brand.<br><br>
 
 
 | column | description | data type |
