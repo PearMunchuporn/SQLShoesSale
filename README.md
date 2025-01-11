@@ -14,6 +14,15 @@ Table info consists of id, product_id, product_name, and description. <br>
 | id | index number of each product | INT |
 | product_name  | name of product  | VARCHAR(MAX) |
 | product_id | unique identifier of each product | VARCHAR(50) |
-| description | description of product | VARCHAR(MAX) |
+| description | description of product | VARCHAR(MAX) | <br>
+
+<h4><b> brands table </h4><b/>
+Table brands consists of id, product_id, brands. <br>
+
+| column | description | data type |
+|----------|----------|----------|
+| id | index number of each product | INT |
+| product_id  | unique identifier of each product  | VARCHAR(50) |
+| brand | brand of product  | VARCHAR(50) | <br>
 
 
