@@ -1,7 +1,7 @@
 # SQLShoesSale
 
 <h2><b> About Data </h2><b/>
-SQL Project Analyzing Online Sports Revenue of popular brands Adidas and Niky 3117 products by using dataset of https://app.datacamp.com/ 
+SQL Project Analyzing Online Sports Revenue of popular brands Adidas and Niky 3117 products by using dataset of https://app.datacamp.com/ <br>
 The tables consist of info, brands, finance, and reviews.
 
 <h3><b> info table </h3><b/>
@@ -17,7 +17,7 @@ Table info consists of id, product_id, product_name, and description. <br><br>
 | description | Description of product | VARCHAR(MAX) | <br>
 
 <h3><b> brands table </h3><b/>
-Table brands consists of id, product_id, and brand.<br><br>
+Table brands consist of id, product_id, and brand.<br><br>
 
 
 | column | description | data type |
@@ -28,7 +28,7 @@ Table brands consists of id, product_id, and brand.<br><br>
 
 
 <h3><b> finance table </h3><b/>
-Table brands consists of id, listing_price, sale_price, discount, and revenue.<br><br>
+Table finance consist of id, listing_price, sale_price, discount, and revenue.<br><br>
 
 
 | column | description | data type |
