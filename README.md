@@ -62,7 +62,22 @@ Analyzed what the product got the best or worst rating using window function ran
 The financial analysis aims to analyze the revenue of the product to answer business questions what product has the best or worst revenue with a discount or without any discount. This analysis can help the marketing team decide on which product should go on sale and find strategies for the enhancement of sales.
 
 
-<h2><b> Business Question for analytical data </h2><b/>
+<h2><b> Business Question or Isssues for analytical data </h2><b/>
+
+<h3><b>Brands analytical</b></h3>
+• Number of total product <br>
+
+<i>Total product is 3,120 </i><br>
+
+• Average ratings by each brand <br>
+
+<i>Adidas is 3.37 and Niky is 2.78 </i> <br>
+
+• Average revenue by each brand <br>
+
+<i>Adidas is 4476.36 and Niky is 1085.27 </i>
+
+<hr>
 
 <h3><b>Reviews analytical</b></h3>
 
