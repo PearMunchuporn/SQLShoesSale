@@ -1,4 +1,4 @@
-# SQLShoesSale
+# SQL Shoes Sale
 
 <h2><b> About Data </h2><b/>
 SQL Project Analyzing Online Sports Revenue of popular brands Adidas and Niky 3,120 products by using dataset of https://app.datacamp.com/ <br>
@@ -59,5 +59,5 @@ To find the average rating scores and average revenue of each brand by using agg
 Analyzed what the product got the best or worst rating using window function rank() by top 3. That can help the production controller improve the quality of the product to meet clients' satisfication and get a better rating.
 
 <h3><b>financial analysis</b></h3>
-The financial analysis aims to analyze the revenue of the product to answer business questions what product has the best or worst revenue with a discount or without any discount. This analysis can help the marketing team decide on which product should go on sale.
+The financial analysis aims to analyze the revenue of the product to answer business questions what product has the best or worst revenue with a discount or without any discount. This analysis can help the marketing team decide on which product should go on sale and find strategies for the enhancement of sales.
 
