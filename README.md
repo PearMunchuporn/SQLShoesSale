@@ -100,7 +100,51 @@ less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
  <i> Poor is 163 </i> <br>
  <i>  Worst is 70 </i> <br>
 
+<hr>
+<h3><b>Finance analytical</b></h3>
 
+• What are products ranked top 3 most expensive? <br>
 
+• What are products ranked top 3 cheapest? <br>
 
+• What are products ranked top 3 best sellers? <br>
+
+• What are the products' lowest sales? <br>
+
+• What product got minimum revenue with a discount? <br>
+
+<i>Men's adidas Swim Eezay Maxout II Slippers got 8.98 sales with 50% discount.</i><br><br>
+
+• What product got minimum revenue without a discount? <br>
+
+<i>Nike Tiempo Legend 8 Club IC got 56.65 sales.</i><br>
+<i>Nike Court Royale AC got 56.65 sales</i><br><br>
+
+• What product got the best sales with a discount? <br>
+
+<i>Men's adidas Running Ultraboost 19 Shoes got 22451.42 sales with 30% off!</i><br><br>
+
+• What product got the best sales without a discount?<br>
+
+<i>Adidas Unisex Originals CRAIG GREEN KONTUUR II SHOES got 37150.45 sales.</i><br><br>
+
+• What product is the most expensive but best seller with a discount? <br>
+
+<i>Men's adidas Football Copa 19+ Firm Ground Cleats has an original price 229.99 but got 19622.18 sales with 40% off!<br></i><br>
+
+• What product is the most expensive but best seller without a discount? <br>
+
+<i>Men's adidas Originals ZX 4000 4D Shoes has an original price is 299.99 and got 28619.05 sales. This is the best saller without discount!</i><br><br>
+
+What product is the most expensive but has minimum revenue with a discount? <br>
+
+<i>Men's s adidas Football Nemeziz 18+ Firm Ground Boots has an orginal price is 299.99 and got 1448.87 sales with 50% off!</i><br><br>
+
+• What product is the cheapest but has minimum revenue with a discount? <br>
+
+<i>Men's adidas Swimming Beach Print Maxout Slippers has original price is 8.99 with discount 50% and got 290.95 sales.</i><br><br>
+
+• How many products got 0 revenue? <br>
+
+<i>There are 76 products have not sold yet.</i><br>
 
