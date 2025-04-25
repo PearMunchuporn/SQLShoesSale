@@ -320,7 +320,7 @@ SELECT TOP (1000)
   ON i.product_id = f.product_id
   JOIN [Shoes].[dbo].[brands] b
   ON b.product_id = f.product_id
-  WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] WHERE revenue!=0 and discount!=0 )
+  WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] WHERE revenue != 0 and discount != 0 )
 ```
 • What product got minimum revenue without a discount? <br>
 
@@ -342,7 +342,7 @@ SELECT TOP (1000)
   ON i.product_id = f.product_id
   JOIN [Shoes].[dbo].[brands] b
   ON b.product_id = f.product_id
-WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] where revenue!=0 and discount=0 )
+WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] where revenue!=0 and discount = 0 )
 ```
 
 
@@ -365,7 +365,7 @@ SELECT TOP (1000)
   ON i.product_id = f.product_id
   JOIN [Shoes].[dbo].[brands] b
   ON b.product_id = f.product_id
-  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount!=0 )
+  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount != 0 )
 ```
 
 • What product got the best sales without a discount?<br>
@@ -386,7 +386,7 @@ SELECT TOP (1000)
   ON i.product_id = f.product_id
   JOIN [Shoes].[dbo].[brands] b
   ON b.product_id = f.product_id
-  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount=0 )
+  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount = 0 )
 ```
 • What product is the most expensive but best seller with a discount? <br>
 
@@ -409,14 +409,37 @@ SELECT TOP (1)
   ON i.product_id = f.product_id
   JOIN [Shoes].[dbo].[brands] b
   ON b.product_id = f.product_id
-  WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount !=0 )
+  WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
 ```
 
 • What product is the most expensive but best seller without a discount? <br>
 
 <i>Men's adidas Originals ZX 4000 4D Shoes has an original price is 299.99 and got 28619.05 sales. This is the best saller without discount!</i><br><br>
 
-What product is the most expensive but has minimum revenue with a discount? <br>
+```sql
+SELECT TOP (1)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+	  ,f.sale_price
+	  ,f.listing_price
+	  ,DENSE_RANK() OVER(ORDER BY [revenue] DESC ) as rank_sale
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+  WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount = 0 )
+
+```
+
+
+• What product is the most expensive but has minimum revenue with a discount? <br>
 
 <i>Men's s adidas Football Nemeziz 18+ Firm Ground Boots has an orginal price is 299.99 and got 1448.87 sales with 50% off!</i><br><br>
 
