@@ -181,25 +181,17 @@ SELECT
 less than 4 but more than or equal 3 is Fair, less than 3 but more than or equal 2 is Poor,  <br>
 less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
 
-• Total number of rated products by criteria? 
-
- <i> Excellent is 116 </i> <br>
- <i> Good is 903 </i> <br>
- <i> Fair is 802 </i> <br>
- <i> Poor is 163 </i> <br>
- <i>  Worst is 70 </i> <br>
- 
 ```sql
  SELECT 
       b.[brand] 
      ,i.[product_name]
      ,r.[rating]
 	 ,CASE
-	 WHEN rating = 5  then 'Excellent'
-	 WHEN rating >= 4 then 'Good'
-	 WHEN rating >= 3 then 'Fair'
-	 WHEN rating >= 2 then 'Poor'
-	 WHEN rating >= 1 then 'Bad'
+	 WHEN rating = 5  THEN 'Excellent'
+	 WHEN rating >= 4 THEN 'Good'
+	 WHEN rating >= 3 THEN 'Fair'
+	 WHEN rating >= 2 THEN 'Poor'
+	 WHEN rating >= 1 THEN 'Bad'
 	 ELSE  'Worse'
 	 END rating_result
 
@@ -213,6 +205,55 @@ less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
   WHERE revenue != 0
 ```
 
+• Total number of rated products by criteria? 
+
+ <i> Excellent is 116 </i> <br>
+ <i> Good is 903 </i> <br>
+ <i> Fair is 802 </i> <br>
+ <i> Poor is 163 </i> <br>
+ <i>  Worst is 70 </i> <br>
+ 
+```sql
+ SELECT sub.rating_result ,COUNT(ID) as [number of rated products] ,sub.rating_ranked 
+ FROM(
+SELECT 
+      r.[ID]
+     ,r.[rating]
+  ,CASE
+	 WHEN rating = 5  THEN 'Excellent'
+	 WHEN rating >= 4 THEN 'Good'
+	 WHEN rating >= 3 THEN 'Fair'
+         WHEN rating >= 2 THEN 'Poor'
+	 WHEN rating >= 1 THEN 'Bad'
+	 ELSE 'Worst'
+	 END rating_result
+
+  ,CASE
+	 WHEN rating = 5  THEN 1
+	 WHEN rating >= 4 THEN 2
+	 WHEN rating >= 3 THEN 3
+	 WHEN rating >= 2 THEN 4
+	 WHEN rating >= 1 THEN 5
+	 ELSE  6
+	 END as rating_ranked
+        ,COUNT(r.[id]) as [number_of_rated_products]
+
+  FROM [Shoes].[dbo].[reviews] r
+  JOIN [Shoes].[dbo].[brands] b
+  ON r.product_id = b.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = r.product_id
+  JOIN [Shoes].[dbo].[finance] f
+  ON f.product_id = r.product_id
+
+  WHERE revenue != 0
+ 
+  GROUP BY [rating], r.[ID]
+
+  )as sub
+GROUP BY rating_result  ,rating_ranked
+ORDER BY sub.rating_ranked
+```
 <hr>
 <h3><b>Finance analytical</b></h3>
 
