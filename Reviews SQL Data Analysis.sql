@@ -42,7 +42,7 @@ SELECT TOP (1000)
   from Lowest_Rating
   where rank_rating<4 and revenue <> 0 
 	
---Finf products have sold but got 0 rating.
+--Find products have sold but got 0 rating.
 --How many products got 0 rating.
 -- ((70 Adidas shoes got a 0 rating))
 SELECT 
@@ -57,8 +57,9 @@ SELECT
   on i.product_id = r.product_id
   join [Shoes].[dbo].finance f
   on f.product_id = r.product_id
-  where rating =0 and revenue!=0  group by rating,brand --Finf products have sold but got 0 rating.
-
+  where rating =0 and revenue!=0  group by rating,brand 
+	
+--Find products have sold but got 0 rating.
 --Categorize ratings of the products by criteria 5 is Excellent, less than 5 but more than or equal 4 is Good,  less than 4 but more than or equal 3 is Fair, less than 3 but more than or equal 2 is Poor,  less than 2 but more than or equal 1 is Bad, 0 rating is Worst.
 SELECT 
      
