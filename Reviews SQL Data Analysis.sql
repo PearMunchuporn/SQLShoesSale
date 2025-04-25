@@ -51,17 +51,17 @@ SELECT TOP (1000)
 	
 SELECT 
       b.[brand]
-      ,count(r.[product_id]) as [number of rated products]
+      ,COUNT(r.[product_id]) as [number of rated products]
       ,r.[rating]
 
   FROM [Shoes].[dbo].[reviews] r
-  join [Shoes].[dbo].[brands] b
-  on r.product_id = b.product_id
-  join [Shoes].[dbo].[info] i
-  on i.product_id = r.product_id
-  join [Shoes].[dbo].finance f
-  on f.product_id = r.product_id
-  where rating =0 and revenue!=0  group by rating,brand 
+  JOIN [Shoes].[dbo].[brands] b
+  ON r.[product_id] = b.[product_id]
+  JOIN [Shoes].[dbo].[info] i
+  ON i.[product_id] = r.[product_id]
+  JOIN [Shoes].[dbo].finance f
+  ON f.[product_id] = r.[product_id]
+  WHERE rating = 0 and revenue != 0  GROUP BY rating, brand 
 	
 	
 --Find products have sold but got 0 rating.
