@@ -112,6 +112,28 @@ SELECT
 
 • What are products ranked top 3 highest ratings? <br>
 
+```sql
+WITH Highest_Rating as (
+SELECT TOP (1000)
+      b.[product_id]
+	   ,b.[brand]
+	   ,i.[product_name]
+	   ,r.[rating]
+     ,DENSE_RANK() OVER(ORDER BY [rating] DESC ) as rank_rating   
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+)
+  SELECT [product_id] ,[brand] ,[product_name],[rating],rank_rating
+  FROM Highest_Rating
+  WHERE rank_rating < 4
+```
+
+
 • What are products ranked top 3 lowest ratings? <br>
 
 • How many products got a 0 rating? <br>
