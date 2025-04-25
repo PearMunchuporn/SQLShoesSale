@@ -217,13 +217,90 @@ less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
 <h3><b>Finance analytical</b></h3>
 
 • What are products ranked top 3 most expensive? <br>
+```sql
+WITH Most_Expensive_Products_Price as (
+SELECT TOP (1000)
+       b.[product_id]
+      ,b.[brand]
+      ,i.[product_name]
+      ,DENSE_RANK() OVER(ORDER BY [listing_price] DESC ) as rank_expensive
+      ,f.[listing_price]
+      
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[brands] b
+  ON f.[product_id] = b.[product_id] 
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = b.product_id
+)
+
+  SELECT product_name, brand ,listing_price,  rank_expensive 
+  FROM  Most_Expensive_Products_Price
+  WHERE rank_expensive < 4 
+
+```
 
 • What are products ranked top 3 cheapest? <br>
+```sql
+WITH Cheapest_Products_Price as (
+SELECT TOP (1000)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,DENSE_RANK() OVER(ORDER BY [listing_price] ) as rank_cheap_price
+          ,[listing_price]
+      
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[brands] b
+  ON f.[product_id] = b.[product_id] 
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = b.product_id)
+  SELECT [product_name], [brand], [listing_price],rank_cheap_price
+  FROM  Cheapest_Products_Price
+  WHERE rank_cheap_price < 4
+```
 
 • What are products ranked top 3 best sellers? <br>
 
+```sql
+WITH Best_Products_TOP3 as (
+SELECT TOP (1000)
+	   b.[brand]
+	  ,i.[product_name]
+	  ,DENSE_RANK() OVER(ORDER BY [revenue] DESC ) as rank_revenue
+      ,[revenue]
+      
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[brands] b
+  ON f.[product_id] = b.[product_id] 
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = b.product_id)
+  SELECT product_name, [brand] , [revenue], rank_revenue 
+  FROM  Best_Products_TOP3
+  WHERE rank_revenue < 4 
+```
 • What are the products' lowest sales? <br>
 
+```sql
+WITH Lowest_Sale as (
+SELECT TOP (1000)
+          b.[product_id]
+         ,b.[brand]
+	 ,i.[product_name]
+	 ,f.[revenue]
+	 ,r.[reviews]
+         ,DENSE_RANK() OVER(ORDER BY [revenue]  ) as rank_lowest_sale
+  
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id)
+  SELECT [product_id] ,[brand] ,[product_name],revenue  ,rank_lowest_sale
+  FROM Lowest_Sale
+  WHERE rank_lowest_sale < 4 
+```
 • What product got minimum revenue with a discount? <br>
 
 <i>Men's adidas Swim Eezay Maxout II Slippers got 8.98 sales with 50% discount.</i><br><br>
