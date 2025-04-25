@@ -84,9 +84,9 @@ SELECT
       ,ROUND(AVG(r.[rating]),2) as [Avg Rating]
   FROM [Shoes].[dbo].[reviews] r
   JOIN [Shoes].[dbo].[brands] b
-  ON r.product_id = b.product_id
+  ON r.[product_id] = b.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = r.product_id
+  ON i.[product_id] = r.[product_id]
   GROUP BY b.brand
 ```
 • Average revenue by each brand <br>
@@ -99,11 +99,11 @@ SELECT
       ,ROUND(AVG(f.[revenue]),2) as [Avg Revenue]
   FROM [Shoes].[dbo].[reviews] r
   JOIN [Shoes].[dbo].[brands] b
-  ON r.product_id = b.product_id
+  ON r.[product_id] = b.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = r.product_id
+  ON i.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[finance] f
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   GROUP BY b.brand
 ```
 <hr>
@@ -122,13 +122,13 @@ SELECT TOP (1000)
     ,DENSE_RANK() OVER (ORDER BY [rating] DESC ) as rank_rating   
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
+  ON b.[product_id] = f.[product_id]
 )
-  SELECT [product_id] ,[brand] ,[product_name],[rating],rank_rating
+  SELECT [product_id], [brand], [product_name], [rating], rank_rating
   FROM Highest_Rating
   WHERE rank_rating < 4
 ```
@@ -148,15 +148,15 @@ SELECT TOP (1000)
 
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
+  ON b.[product_id] = f.[product_id]
 )
-  SELECT [product_id] ,[brand] ,[product_name],[rating],rank_rating  ,reviews
+  SELECT [product_id], [brand], [product_name], [rating], rank_rating, [reviews]
   FROM Lowest_Rating
-  WHERE rank_rating<4 and revenue <> 0
+  WHERE rank_rating < 4 and revenue <> 0
 ```
 • How many products got a 0 rating but they can be sold ? <br>
  <i>70 products of Adidas</i>
@@ -169,12 +169,12 @@ SELECT
 
   FROM [Shoes].[dbo].[reviews] r
   JOIN [Shoes].[dbo].[brands] b
-  ON r.product_id = b.product_id
+  ON r.[product_id] = b.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = r.product_id
+  ON i.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].finance f
-  ON f.product_id = r.product_id
-  WHERE rating = 0 and revenue!=0  GROUP BY rating,brand 
+  ON f.[product_id] = r.[product_id]
+  WHERE rating = 0 and revenue != 0  GROUP BY rating, brand 
 ```
 
 • Categorize ratings of the products by criteria 5 is Excellent, less than 5 but more than or equal 4 is Good,  <br>
@@ -196,21 +196,21 @@ less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
      ,r.[rating]
 	 ,CASE
 	 WHEN rating = 5  then 'Excellent'
-	 WHEN rating >=4 then 'Good'
+	 WHEN rating >= 4 then 'Good'
 	 WHEN rating >= 3 then 'Fair'
 	 WHEN rating >= 2 then 'Poor'
-	 WHEN  rating >= 1 then 'Bad'
+	 WHEN rating >= 1 then 'Bad'
 	 ELSE  'Worse'
 	 END rating_result
 
   FROM [Shoes].[dbo].[reviews] r
   JOIN [Shoes].[dbo].[brands] b
-  ON r.product_id = b.product_id
+  ON r.[product_id] = b.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = r.product_id
+  ON i.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[finance] f
-  ON f.product_id = r.product_id
-  WHERE revenue !=0
+  ON f.[product_id] = r.[product_id]
+  WHERE revenue != 0
 ```
 
 <hr>
@@ -230,10 +230,10 @@ SELECT TOP (1000)
   JOIN [Shoes].[dbo].[brands] b
   ON f.[product_id] = b.[product_id] 
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = b.product_id
+  ON i.[product_id] = b.[product_id]
 )
 
-  SELECT product_name, brand ,listing_price,  rank_expensive 
+  SELECT product_name, brand, listing_price, rank_expensive 
   FROM  Most_Expensive_Products_Price
   WHERE rank_expensive < 4 
 
@@ -253,8 +253,9 @@ SELECT TOP (1000)
   JOIN [Shoes].[dbo].[brands] b
   ON f.[product_id] = b.[product_id] 
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = b.product_id)
-  SELECT [product_name], [brand], [listing_price],rank_cheap_price
+  ON i.[product_id] = b.[product_id]
+)
+  SELECT [product_name], [brand], [listing_price], rank_cheap_price
   FROM  Cheapest_Products_Price
   WHERE rank_cheap_price < 4
 ```
@@ -267,14 +268,15 @@ SELECT TOP (1000)
 	   b.[brand]
 	  ,i.[product_name]
 	  ,DENSE_RANK() OVER(ORDER BY [revenue] DESC ) as rank_revenue
-      ,[revenue]
+          ,[revenue]
       
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[brands] b
   ON f.[product_id] = b.[product_id] 
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = b.product_id)
-  SELECT product_name, [brand] , [revenue], rank_revenue 
+  ON i.[product_id] = b.[product_id]
+)
+  SELECT product_name, [brand], [revenue], rank_revenue 
   FROM  Best_Products_TOP3
   WHERE rank_revenue < 4 
 ```
@@ -292,12 +294,13 @@ SELECT TOP (1000)
   
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id)
-  SELECT [product_id] ,[brand] ,[product_name],revenue  ,rank_lowest_sale
+  ON b.[product_id] = f.[product_id]
+)
+  SELECT [product_id], [brand], [product_name], [revenue], rank_lowest_sale
   FROM Lowest_Sale
   WHERE rank_lowest_sale < 4 
 ```
@@ -315,11 +318,11 @@ SELECT TOP (1000)
     
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
+  ON b.[product_id] = f.[product_id]
   WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] WHERE revenue != 0 and discount != 0 )
 ```
 • What product got minimum revenue without a discount? <br>
@@ -337,12 +340,12 @@ SELECT TOP (1000)
   
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
-WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] where revenue!=0 and discount = 0 )
+  ON b.[product_id] = f.[product_id]
+WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] WHERE revenue != 0 and discount = 0 )
 ```
 
 
@@ -360,12 +363,12 @@ SELECT TOP (1000)
     
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
-  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount != 0 )
+  ON b.[product_id] = f.[product_id]
+  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
 ```
 
 • What product got the best sales without a discount?<br>
@@ -381,34 +384,34 @@ SELECT TOP (1000)
     
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
-  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount = 0 )
+  ON b.[product_id] = f.[product_id]
+  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] WHERE discount = 0 )
 ```
 • What product is the most expensive but best seller with a discount? <br>
 
 <i>Men's adidas Football Copa 19+ Firm Ground Cleats has an original price 229.99 but got 19622.18 sales with 40% off!<br></i><br>
 ```sql
 SELECT TOP (1)
-          b.[product_id]
+           b.[product_id]
 	  ,b.[brand]
 	  ,i.[product_name]
 	  ,([revenue])
 	  ,([discount]) 
-	  ,f.sale_price
-	  ,f.listing_price
+	  ,f.[sale_price]
+	  ,f.[listing_price]
 	  ,DENSE_RANK() OVER(ORDER BY [revenue] DESC) as rank_sale
     
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
+  ON b.[product_id] = f.[product_id]
   WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
 ```
 
@@ -429,11 +432,11 @@ SELECT TOP (1)
     
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
-  ON f.product_id = r.product_id
+  ON f.[product_id] = r.[product_id]
   JOIN [Shoes].[dbo].[info] i
-  ON i.product_id = f.product_id
+  ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
-  ON b.product_id = f.product_id
+  ON b.[product_id] = f.[product_id]
   WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount = 0 )
 
 ```
@@ -442,12 +445,68 @@ SELECT TOP (1)
 • What product is the most expensive but has minimum revenue with a discount? <br>
 
 <i>Men's s adidas Football Nemeziz 18+ Firm Ground Boots has an orginal price is 299.99 and got 1448.87 sales with 50% off!</i><br><br>
-
+```sql
+SELECT TOP (1)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+	  ,f.[sale_price]
+	  ,f.[listing_price]
+	  ,DENSE_RANK() OVER(ORDER BY [revenue]) as rank_price
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.[product_id] = r.[product_id]
+  JOIN [Shoes].[dbo].[info] i
+  ON i.[product_id] = f.[product_id]
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.[product_id] = f.[product_id]
+WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
+```
 • What product is the cheapest but has minimum revenue with a discount? <br>
 
 <i>Men's adidas Swimming Beach Print Maxout Slippers has original price is 8.99 with discount 50% and got 290.95 sales.</i><br><br>
+```sql
+SELECT TOP (1)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+	  ,f.[sale_price]
+	  ,f.[listing_price]
+	  ,DENSE_RANK() OVER(ORDER BY [revenue]) as rank_price
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.[product_id] = r.[product_id]
+  JOIN [Shoes].[dbo].[info] i
+  ON i.[product_id] = f.[product_id]
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.[product_id] = f.[product_id]
+WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
+
+```
 
 • How many products got 0 revenue? <br>
 
 <i>There are 76 products have not sold yet.</i><br>
+
+```sql
+SELECT TOP (2000)
+      COUNT(f.[revenue]) as [number of product got 0 revenue]
+ 
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.[product_id] = r.[product_id]
+  JOIN [Shoes].[dbo].[info] i
+  ON i.[product_id] = f.[product_id]
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.[product_id] = f.[product_id]
+  WHERE revenue = 0
+  GROUP BY revenue
+
+```
 
