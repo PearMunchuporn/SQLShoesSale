@@ -239,20 +239,39 @@ WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] W
 ---What product is the cheapest but has minimum revenue with a discount?
 ---((Men's adidas Swimming Beach Print Maxout Slippers has original price is 8.99 with discount 50% and got 290.95 sales. ))
 
+SELECT TOP (1)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+	  ,f.[sale_price]
+	  ,f.[listing_price]
+	  ,DENSE_RANK() OVER(ORDER BY [revenue]) as rank_price
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.[product_id] = r.[product_id]
+  JOIN [Shoes].[dbo].[info] i
+  ON i.[product_id] = f.[product_id]
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.[product_id] = f.[product_id]
+WHERE listing_price  = (SELECT MIN(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
 
 
 	
-	---How many products got 0 revenue?
-
+---How many products got 0 revenue?
+---((There are 76 products have not sold yet. ))
 SELECT TOP (2000)
-      count(f.[revenue]) as [number of product got 0 revenue]
+      COUNT(f.[revenue]) as [number of product got 0 revenue]
  
   FROM [Shoes].[dbo].[finance] f
-  join [Shoes].[dbo].[reviews] r
-  on f.product_id = r.product_id
-  join [Shoes].[dbo].[info] i
-  on i.product_id = f.product_id
-  join [Shoes].[dbo].[brands] b
-  on b.product_id = f.product_id
-  where revenue =0
-  group by revenue
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.[product_id] = r.[product_id]
+  JOIN [Shoes].[dbo].[info] i
+  ON i.[product_id] = f.[product_id]
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.[product_id] = f.[product_id]
+  WHERE revenue = 0
+  GROUP BY revenue
+
