@@ -527,7 +527,7 @@ SELECT TOP (1)
   ON i.[product_id] = f.[product_id]
   JOIN [Shoes].[dbo].[brands] b
   ON b.[product_id] = f.[product_id]
-WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
+WHERE listing_price  = (SELECT MIN(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount != 0 )
 
 ```
 
