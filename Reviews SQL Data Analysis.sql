@@ -40,10 +40,11 @@ SELECT TOP (1000)
 
   select [product_id] ,[brand] ,[product_name],[rating],rank_rating  ,reviews
   from Lowest_Rating
-  where rank_rating<4 and revenue <> 0 --Finf products have sold but got 0 rating.
-
+  where rank_rating<4 and revenue <> 0 
+	
+--Finf products have sold but got 0 rating.
 --How many products got 0 rating.
-  -- ((70 Adidas shoes got a 0 rating))
+-- ((70 Adidas shoes got a 0 rating))
 SELECT 
       b.[brand]
       ,count(r.[product_id]) as [number of rated products]
