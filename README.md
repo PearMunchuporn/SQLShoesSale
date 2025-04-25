@@ -115,11 +115,11 @@ SELECT
 ```sql
 WITH Highest_Rating as (
 SELECT TOP (1000)
-      b.[product_id]
-	   ,b.[brand]
-	   ,i.[product_name]
-	   ,r.[rating]
-     ,DENSE_RANK() OVER(ORDER BY [rating] DESC ) as rank_rating   
+     b.[product_id]
+    ,b.[brand]
+    ,i.[product_name]
+    ,r.[rating]
+    ,DENSE_RANK() OVER (ORDER BY [rating] DESC ) as rank_rating   
   FROM [Shoes].[dbo].[finance] f
   JOIN [Shoes].[dbo].[reviews] r
   ON f.product_id = r.product_id
@@ -135,9 +135,47 @@ SELECT TOP (1000)
 
 
 • What are products ranked top 3 lowest ratings? <br>
+```sql
+WITH Lowest_Rating as (
+SELECT TOP (1000)
+      b.[product_id]
+     ,b.[brand]
+     ,i.[product_name]
+     ,r.[rating]
+     ,f.[revenue]
+     ,r.[reviews]
+     ,DENSE_RANK() OVER (ORDER BY [rating]) as rank_rating
 
-• How many products got a 0 rating? <br>
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+)
+  SELECT [product_id] ,[brand] ,[product_name],[rating],rank_rating  ,reviews
+  FROM Lowest_Rating
+  WHERE rank_rating<4 and revenue <> 0
+```
+• How many products got a 0 rating but they can be sold ? <br>
  <i>70 products of Adidas</i>
+ 
+```sql
+SELECT 
+      b.[brand]
+      ,COUNT(r.[product_id]) as [number of rated products]
+      ,r.[rating]
+
+  FROM [Shoes].[dbo].[reviews] r
+  JOIN [Shoes].[dbo].[brands] b
+  ON r.product_id = b.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = r.product_id
+  JOIN [Shoes].[dbo].finance f
+  ON f.product_id = r.product_id
+  WHERE rating = 0 and revenue!=0  GROUP BY rating,brand 
+```
 
 • Categorize ratings of the products by criteria 5 is Excellent, less than 5 but more than or equal 4 is Good,  <br>
 less than 4 but more than or equal 3 is Fair, less than 3 but more than or equal 2 is Poor,  <br>
@@ -150,6 +188,30 @@ less than 2 but more than or equal 1 is Bad, 0 rating is Worst. <br>
  <i> Fair is 802 </i> <br>
  <i> Poor is 163 </i> <br>
  <i>  Worst is 70 </i> <br>
+ 
+```sql
+ SELECT 
+      b.[brand] 
+     ,i.[product_name]
+     ,r.[rating]
+	 ,CASE
+	 WHEN rating = 5  then 'Excellent'
+	 WHEN rating >=4 then 'Good'
+	 WHEN rating >= 3 then 'Fair'
+	 WHEN rating >= 2 then 'Poor'
+	 WHEN  rating >= 1 then 'Bad'
+	 ELSE  'Worse'
+	 END rating_result
+
+  FROM [Shoes].[dbo].[reviews] r
+  JOIN [Shoes].[dbo].[brands] b
+  ON r.product_id = b.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = r.product_id
+  JOIN [Shoes].[dbo].[finance] f
+  ON f.product_id = r.product_id
+  WHERE revenue !=0
+```
 
 <hr>
 <h3><b>Finance analytical</b></h3>
