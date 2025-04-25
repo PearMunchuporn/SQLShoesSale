@@ -305,22 +305,112 @@ SELECT TOP (1000)
 
 <i>Men's adidas Swim Eezay Maxout II Slippers got 8.98 sales with 50% discount.</i><br><br>
 
+```sql
+SELECT TOP (1000)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+  WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] WHERE revenue!=0 and discount!=0 )
+```
 • What product got minimum revenue without a discount? <br>
 
 <i>Nike Tiempo Legend 8 Club IC got 56.65 sales.</i><br>
 <i>Nike Court Royale AC got 56.65 sales</i><br><br>
 
+```sql
+SELECT TOP (1000)
+      b.[product_id]
+     ,b.[brand]
+     ,i.[product_name]
+     ,([revenue])
+     ,([discount]) 
+  
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+WHERE revenue  = (SELECT MIN(revenue) FROM [Shoes].[dbo].[finance] where revenue!=0 and discount=0 )
+```
+
+
 • What product got the best sales with a discount? <br>
 
 <i>Men's adidas Running Ultraboost 19 Shoes got 22451.42 sales with 30% off!</i><br><br>
 
+```sql
+SELECT TOP (1000)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount!=0 )
+```
+
 • What product got the best sales without a discount?<br>
 
 <i>Adidas Unisex Originals CRAIG GREEN KONTUUR II SHOES got 37150.45 sales.</i><br><br>
-
+```sql
+SELECT TOP (1000)
+           b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+  WHERE revenue  = (SELECT MAX(revenue) FROM [Shoes].[dbo].[finance] where  discount=0 )
+```
 • What product is the most expensive but best seller with a discount? <br>
 
 <i>Men's adidas Football Copa 19+ Firm Ground Cleats has an original price 229.99 but got 19622.18 sales with 40% off!<br></i><br>
+```sql
+SELECT TOP (1)
+          b.[product_id]
+	  ,b.[brand]
+	  ,i.[product_name]
+	  ,([revenue])
+	  ,([discount]) 
+	  ,f.sale_price
+	  ,f.listing_price
+	  ,DENSE_RANK() OVER(ORDER BY [revenue] DESC) as rank_sale
+    
+  FROM [Shoes].[dbo].[finance] f
+  JOIN [Shoes].[dbo].[reviews] r
+  ON f.product_id = r.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = f.product_id
+  JOIN [Shoes].[dbo].[brands] b
+  ON b.product_id = f.product_id
+  WHERE listing_price  = (SELECT MAX(listing_price) FROM [Shoes].[dbo].[finance] WHERE discount !=0 )
+```
 
 • What product is the most expensive but best seller without a discount? <br>
 
