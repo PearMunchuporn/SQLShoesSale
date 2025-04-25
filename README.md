@@ -68,15 +68,44 @@ The financial analysis aims to analyze the revenue of the product to answer busi
 • Number of total product <br>
 
 <i>Total product is 3,120 </i><br>
+```sql
+  SELECT  
+      COUNT([id]) as [number of total products]
+     ,[brand]
+  FROM [Shoes].[dbo].[brands]
+```
 
 • Average ratings by each brand <br>
 
 <i>Adidas is 3.37 and Niky is 2.78 </i> <br>
-
+```sql
+SELECT 
+       b.[brand] 
+      ,ROUND(AVG(r.[rating]),2) as [Avg Rating]
+  FROM [Shoes].[dbo].[reviews] r
+  JOIN [Shoes].[dbo].[brands] b
+  ON r.product_id = b.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = r.product_id
+  GROUP BY b.brand
+```
 • Average revenue by each brand <br>
 
 <i>Adidas is 4476.36 and Niky is 1085.27 </i>
 
+```sql
+SELECT 
+       b.[brand] 
+      ,ROUND(AVG(f.[revenue]),2) as [Avg Revenue]
+  FROM [Shoes].[dbo].[reviews] r
+  JOIN [Shoes].[dbo].[brands] b
+  ON r.product_id = b.product_id
+  JOIN [Shoes].[dbo].[info] i
+  ON i.product_id = r.product_id
+  JOIN [Shoes].[dbo].[finance] f
+  ON f.product_id = r.product_id
+  GROUP BY b.brand
+```
 <hr>
 
 <h3><b>Reviews analytical</b></h3>
